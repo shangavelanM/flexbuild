@@ -77,7 +77,8 @@ repo:
     url:  https://github.com/nxp-qoriq/atf.git
 
   uboot:
-    url:  https://github.com/nxp-qoriq/u-boot.git
+    url:  https://github.com/ADLINK/u-boot.git
+    tag:  lf-6.6.23-2.0.0-sp2-r0001
 
   rcw:
     url:  https://github.com/nxp-qoriq/rcw.git
@@ -138,8 +139,8 @@ repo:
 
 # kernel and modules git repositories
   linux:
-    url:  https://github.com/nxp-imx/linux-imx.git
-    tag:  lf-6.6.3-1.0.0
+    url:  https://github.com/ADLINK/linux.git
+    tag:  lf-6.6.23-2.0.0-sp2-r0001
 
   cryptodev_linux:
     url:  https://github.com/cryptodev-linux/cryptodev-linux.git
