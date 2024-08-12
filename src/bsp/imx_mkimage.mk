@@ -48,6 +48,8 @@ define imx_mkimage_target
 	SOC=iMX8M; SOC_FAMILY=iMX8M; target=flash_ddr4_val; \
     elif echo $1 | grep -qE ^imx8mq_evk; then \
 	SOC=iMX8M; SOC_FAMILY=iMX8M; target=flash_evk; \
+    elif echo $1 | grep -qE ^sp2imx8mp; then \
+	SOC=iMX8M; SOC_FAMILY=iMX8M; target=flash_evk; \
     elif echo $1 | grep -qE ^imx8qm; then \
 	SOC=iMX8QM; SOC_FAMILY=iMX8QM; target=flash_spl; \
 	cp -f $(BSPDIR)/imx-scfw/mx8qm-mek-scfw-tcm.bin $(BSPDIR)/imx_mkimage/iMX8QM/scfw_tcm.bin; \
