@@ -18,7 +18,11 @@ linux:
 	$(call fbprint_n,"Building $(KERNEL_TREE) with $$curbrch") && \
 	$(call fbprint_n,"Compiler = `$(CROSS_COMPILE)gcc --version | head -1`") && \
 	if [ $(DESTARCH) = arm64 -a $(SOCFAMILY) = IMX ]; then \
-	    locarch=arm64; dtbstr=freescale/imx*.dtb; \
+		if [ $(MACHINE) = sp2imx8mp ]; then \
+			locarch=arm64; dtbstr=adlink/*.dtb*; \
+		else
+			locarch=arm64; dtbstr=freescale/imx*.dtb; \
+		fi;
 	elif [ $(DESTARCH) = arm64 -a $(SOCFAMILY) = LS ]; then \
 	    locarch=arm64; dtbstr=freescale/fsl*.dtb; extflags="DTC_FLAGS='-@'"; \
 	elif [ $(DESTARCH) = arm32 -a $(SOCFAMILY) = LS ]; then \
