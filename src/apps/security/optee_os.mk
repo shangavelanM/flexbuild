@@ -32,7 +32,7 @@ optee_os:
 		     mv out/arm-plat-ls/core/tee-raw.bin out/arm-plat-ls/core/tee_$${MACHINE:0:10}.bin; \
 		 fi; \
 	elif [ $(SOCFAMILY) = IMX ]; then \
-		 if [ $(MACHINE) = qemuarm64 -o $(MACHINE) = all ]; then \
+		 if [ $(MACHINE) = qemuarm64 -o $(MACHINE) = sp2imx8mp -o $(MACHINE) = all ]; then \
 		     brd=mx8mpevk; \
 		 else \
 		     brd=$${MACHINE:1}; \
