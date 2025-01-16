@@ -34,73 +34,9 @@
 			entry = <0x00000000>;
 		};
 
-
-		imx8mqevk-dtb {
+		sp2imx8mp-dtb {
 			description = "Flattened Device Tree blob";
-			data = /incbin/("../../build/linux/kernel/arm64/IMX/imx8mq-evk.dtb");
-			type = "flat_dt";
-			arch = "arm64";
-			os = "linux";
-			compression = "none";
-			load = <0x90000000>;
-		};
-		imx8mpevk-dtb {
-			description = "Flattened Device Tree blob";
-			data = /incbin/("../../build/linux/kernel/arm64/IMX/imx8mp-evk.dtb");
-			type = "flat_dt";
-			arch = "arm64";
-			os = "linux";
-			compression = "none";
-			load = <0x90000000>;
-		};
-		imx8qmmek-dtb {
-			description = "Flattened Device Tree blob";
-			data = /incbin/("../../build/linux/kernel/arm64/IMX/imx8qm-mek.dtb");
-			type = "flat_dt";
-			arch = "arm64";
-			os = "linux";
-			compression = "none";
-			load = <0x90000000>;
-		};
-		imx8mmevk-dtb {
-			description = "Flattened Device Tree blob";
-			data = /incbin/("../../build/linux/kernel/arm64/IMX/imx8mm-evk.dtb");
-			type = "flat_dt";
-			arch = "arm64";
-			os = "linux";
-			compression = "none";
-			load = <0x90000000>;
-		};
-		imx8mnevk-dtb {
-			description = "Flattened Device Tree blob";
-			data = /incbin/("../../build/linux/kernel/arm64/IMX/imx8mn-evk.dtb");
-			type = "flat_dt";
-			arch = "arm64";
-			os = "linux";
-			compression = "none";
-			load = <0x90000000>;
-		};
-		imx8qxpmek-dtb {
-			description = "Flattened Device Tree blob";
-			data = /incbin/("../../build/linux/kernel/arm64/IMX/imx8qxp-mek.dtb");
-			type = "flat_dt";
-			arch = "arm64";
-			os = "linux";
-			compression = "none";
-			load = <0x83000000>;
-		};
-		imx8ulpevk-dtb {
-			description = "Flattened Device Tree blob";
-			data = /incbin/("../../build/linux/kernel/arm64/IMX/imx8ulp-evk.dtb");
-			type = "flat_dt";
-			arch = "arm64";
-			os = "linux";
-			compression = "none";
-			load = <0x90000000>;
-		};
-		imx93evk-dtb {
-			description = "Flattened Device Tree blob";
-			data = /incbin/("../../build/linux/kernel/arm64/IMX/imx93-11x11-evk.dtb");
+			data = /incbin/("../../build/linux/kernel/arm64/IMX/sp2imx8mp.dtb");
 			type = "flat_dt";
 			arch = "arm64";
 			os = "linux";

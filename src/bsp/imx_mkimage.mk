@@ -6,6 +6,8 @@
 define imx_mkimage_target
     if [ ! -d $(BSPDIR)/imx_mkimage ]; then \
 	$(call repo-mngr,fetch,imx_mkimage,bsp); \
+	cd $(BSPDIR)/imx_mkimage && \
+	git apply $(FBDIR)/patch/imx_mkimage/sp2imx8mp_mkimage.patch; \
     fi && \
     \
     if [ ! -d $(BSPDIR)/firmware-imx ]; then \
@@ -36,6 +38,7 @@ define imx_mkimage_target
 	SOC=iMX8MP; SOC_FAMILY=iMX8M; target=flash_ddr4_evk; \
     elif echo $1 | grep -qE ^imx8mp_evk; then \
 	SOC=iMX8MP; SOC_FAMILY=iMX8M; target=flash_evk; \
+	echo "inside evkimx in mkimage -- $(SOC)"; \
     elif echo $1 | grep -qE ^imx8mm_ddr4_evk; then \
 	SOC=iMX8MM; SOC_FAMILY=iMX8M; target=flash_ddr4_evk; \
     elif echo $1 | grep -qE ^imx8mm_evk; then \
@@ -49,7 +52,10 @@ define imx_mkimage_target
     elif echo $1 | grep -qE ^imx8mq_evk; then \
 	SOC=iMX8M; SOC_FAMILY=iMX8M; target=flash_evk; \
     elif echo $1 | grep -qE ^sp2imx8mp; then \
-	SOC=iMX8M; SOC_FAMILY=iMX8M; target=flash_evk; \
+	SOC=iMX8MP; SOC_FAMILY=iMX8M; target=flash_evk; \
+	echo "inside sp2imx in mkimage -- $(SOC)"; \
+    elif echo $1 | grep -qE ^adlink; then \
+	SOC=iMX8MP; SOC_FAMILY=iMX8M; target=flash_evk; \
     elif echo $1 | grep -qE ^imx8qm; then \
 	SOC=iMX8QM; SOC_FAMILY=iMX8QM; target=flash_spl; \
 	cp -f $(BSPDIR)/imx-scfw/mx8qm-mek-scfw-tcm.bin $(BSPDIR)/imx_mkimage/iMX8QM/scfw_tcm.bin; \
@@ -89,6 +95,7 @@ define imx_mkimage_target
     fi && \
     [ $(MACHINE) = imx8ulpevk ] && plat=$${MACHINE:0:7} || plat=$${MACHINE:0:6} && \
     [ $(MACHINE) = imx93evk ] && plat=$${MACHINE:0:5} || true && \
+    [ $(MACHINE) = sp2imx8mp ] && plat=imx8mp || true && \
     cp -t $(BSPDIR)/imx_mkimage/$$SOC_FAMILY \
 	$(BSPDIR)/firmware-imx/firmware/hdmi/cadence/signed*_imx8m.bin \
 	$$opdir/spl/u-boot-spl.bin $$opdir/u-boot.bin \
@@ -104,6 +111,9 @@ define imx_mkimage_target
 	   $(MACHINE) = imx8mqevk ] && [ $$target = flash_ddr4_evk -o $$target = flash_ddr4_val ]; then \
 	cp $$SOC_FAMILY/flash.bin $(FBOUTDIR)/bsp/imx-mkimage/$$brd/flash-ddr4.bin; \
     elif [ $(MACHINE) = imx8mpevk -o $(MACHINE) = imx8mnevk -o $(MACHINE) = imx8mmevk -o \
+	   $(MACHINE) = imx8mqevk ] && [ $$target = flash_evk ]; then \
+	cp $$SOC_FAMILY/flash.bin $(FBOUTDIR)/bsp/imx-mkimage/$$brd/flash-lpddr4.bin; \
+    elif [ $(MACHINE) = sp2imx8mp -o $(MACHINE) = lecimx8mp -o $(MACHINE) = imx8mmevk -o \
 	   $(MACHINE) = imx8mqevk ] && [ $$target = flash_evk ]; then \
 	cp $$SOC_FAMILY/flash.bin $(FBOUTDIR)/bsp/imx-mkimage/$$brd/flash-lpddr4.bin; \
     elif [ $(MACHINE) = imx8ulpevk -a $$target = flash_singleboot ]; then \

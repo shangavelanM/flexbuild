@@ -92,6 +92,7 @@ create_composite_firmware() {
 
 			[ $i = $MAX_COMPOSITE_IMG_NUM -a "$COMPOSITE_FW_NO_ITB_TYPE" = "$boottype" ] && break
 
+			echo ${img_file}
 			if [ -n "${img_file}" ]; then
 			    if [ -e "$FBOUTDIR/${img_file}" ]; then
 				echo " Writing ${img_offset} <---> build/${img_file}"

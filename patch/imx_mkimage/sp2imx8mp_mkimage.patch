@@ -1,0 +1,13 @@
+diff --git a/iMX8M/soc.mak b/iMX8M/soc.mak
+index 085224d..b3e8c48 100644
+--- a/iMX8M/soc.mak
++++ b/iMX8M/soc.mak
+@@ -153,7 +153,7 @@ clean:
+ 
+ dtb = evk.dtb
+ $(dtb):
+-	./$(DTB_PREPROC) $(PLAT)-evk.dtb $(dtb) $(dtbs)
++	./$(DTB_PREPROC) sp2imx8mp.dtb $(dtb) $(dtbs)
+ 
+ u-boot.itb: $(dtb) $(supp_dtbs)
+ 	./$(PAD_IMAGE) $(TEE)

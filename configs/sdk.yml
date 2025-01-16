@@ -139,8 +139,9 @@ repo:
 
 # kernel and modules git repositories
   linux:
-    url:  https://github.com/ADLINK/linux.git
-    tag:  lf-6.6.23-2.0.0-sp2-r0001
+    #   url:  https://github.com/ADLINK/linux.git
+    url: https://github.com/shangavelanM/linux.git
+    tag:  lf-6.6.23-2.0.0-sp2-r0003
 
   cryptodev_linux:
     url:  https://github.com/cryptodev-linux/cryptodev-linux.git

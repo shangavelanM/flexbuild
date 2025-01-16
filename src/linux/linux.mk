@@ -20,9 +20,9 @@ linux:
 	if [ $(DESTARCH) = arm64 -a $(SOCFAMILY) = IMX ]; then \
 		if [ $(MACHINE) = sp2imx8mp ]; then \
 			locarch=arm64; dtbstr=adlink/*.dtb*; \
-		else
+		else \
 			locarch=arm64; dtbstr=freescale/imx*.dtb; \
-		fi;
+		fi; \
 	elif [ $(DESTARCH) = arm64 -a $(SOCFAMILY) = LS ]; then \
 	    locarch=arm64; dtbstr=freescale/fsl*.dtb; extflags="DTC_FLAGS='-@'"; \
 	elif [ $(DESTARCH) = arm32 -a $(SOCFAMILY) = LS ]; then \
