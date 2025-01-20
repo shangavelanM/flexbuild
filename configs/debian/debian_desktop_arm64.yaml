@@ -97,6 +97,7 @@ mmdebstrap:
     - libgpiod2
     - msgpack
     - smbus2
+    - can-utils
   setup-hooks:
       # Setup NXP board-specific configurations for various platforms
     - 'mkdir -p $1/usr/local/bin'

@@ -70,7 +70,7 @@ generate_bootpartition_tarball() {
 
     bld distroscr -a $DESTARCH -p $SOCFAMILY -f $CFGLISTYML
 
-    ls $FBOUTDIR/bsp/u-boot/$socseries*/*boot.scr | grep -E $scrmask | xargs -I {} cp -v {} $bootpartdir
+    ls $FBOUTDIR/bsp/u-boot/*$socseries*/*boot.scr | grep -E $scrmask | xargs -I {} cp -v {} $bootpartdir
 
     # check UEFI
     if [ "$CONFIG_UEFI_BIN" = y -a $SOCFAMILY = LS -a $DESTARCH = arm64 ]; then
