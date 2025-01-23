@@ -95,8 +95,8 @@ mmdebstrap:
     - dmz-cursor-theme
     - gpiod
     - libgpiod2
-    - msgpack
-    - smbus2
+    - python3-msgpack
+    - python3-smbus2
     - can-utils
   setup-hooks:
       # Setup NXP board-specific configurations for various platforms
@@ -121,6 +121,8 @@ mmdebstrap:
     - 'cp tools/flex-installer $1/usr/bin/'
     - 'cp tools/resizerfs $1/usr/bin/'
     - 'cp src/misc/bt-hciattach.sh $1/usr/sbin/'
+    - 'cp src/misc/audio_setup.sh $1/usr/sbin/'
+    - 'chmod 755 $1/usr/sbin/audio_setup.sh'
     - 'cp src/misc/udev/udev-rules-*/*.rules $1/etc/udev/rules.d/'
     - 'cp src/misc/debian/distroplatcfg $1/usr/bin/'
     - 'cp src/misc/debian/platcfg.service $1/lib/systemd/system/'
@@ -145,3 +147,5 @@ mmdebstrap:
     - 'printf "Build: `date --rfc-3339 seconds`\n" >> $1/etc/buildinfo'
     - 'printf "options moal mod_para=nxp/wifi_mod_para.conf" >> $1/etc/modprobe.d/moal.conf'
     - 'printf "moal\n" >> $1/etc/modules'
+    - 'printf "@reboot root gpioset /dev/gpiochip0 1=1\n" >> $1/etc/crontab'
+    - 'printf "@reboot root /usr/sbin/audio_setup.sh\n" >> $1/etc/crontab'

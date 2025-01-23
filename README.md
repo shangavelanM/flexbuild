@@ -37,7 +37,7 @@ device (SD/eMMC card or USB/SATA disk) on target board or on host machine.
 ----------------------
 - __iMX platform__:  
 imx6qpsabresd, imx6qsabresd, imx6sllevk, imx7ulpevk, imx8mmevk, imx8mnevk, imx8mpevk,  
-imx8mqevk, imx8qmmek, imx8qxpmek, imx8ulpevk, imx93evk, etc
+imx8mqevk, imx8qmmek, imx8qxpmek, imx8ulpevk, imx93evk,sp2imx8mp etc
 
 - __Layerscape platform__:  
 ls1012ardb, ls1012afrwy, ls1021atwr, ls1028ardb, ls1043ardb, ls1046ardb, ls1046afrwy,  
@@ -50,12 +50,14 @@ ls1088ardb, ls2088ardb, ls2160ardb, lx2162aqds, etc
 ```
 $ cd flexbuild
 $ . setup.env
-$ bld docker (create or attach a docker container)
-$ . setup.env
+$ bld list #to list machine and packages
 $ bld -h
 
 Usage: bld -m <machine>
    or  bld <target> [ <option> ]
+
+$ bld bsp -m sp2imx8mp # first build the bsp components separately to make sure the patch applies
+$ bld -m sp2imx8mp # Complete build
 ```
 
 Most used example with automated build:
@@ -90,6 +92,9 @@ Most used example with separate command:
  bld clean-linux                 # clean obsolete linux image
  bld list                        # list enabled machines and supported various components
 ```
+
+
+note : if there is random disconnect in network the build may fail.In that case re-run "bld -m sp2imx8mp".
 
 ## More info
 ------------
