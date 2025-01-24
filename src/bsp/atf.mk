@@ -12,6 +12,7 @@ atf:
 	 $(call repo-mngr,fetch,mbedtls,bsp) && \
 	 if [ "$(MACHINE)" = all ]; then $(call fbprint_w,"Please specify '-m <machine>'") && exit 0; fi && \
 	 if [ -z "$(BOOTTYPE)" ]; then $(call fbprint_w,"Please specify '-b <boottype>'") && exit 0; fi && \
+	 if [ "$(MACHINE)" = sp2imx8mp ]; then MACHINE=imx8mp; fi && \
 	 cd $(BSPDIR)/atf && \
 	 curbrch=`git branch | grep ^* | cut -d' ' -f2` && \
 	 $(call fbprint_n,"Building ATF $$curbrch" for $(MACHINE)) && \

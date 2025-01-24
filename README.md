@@ -37,7 +37,7 @@ device (SD/eMMC card or USB/SATA disk) on target board or on host machine.
 ----------------------
 - __iMX platform__:  
 imx6qpsabresd, imx6qsabresd, imx6sllevk, imx7ulpevk, imx8mmevk, imx8mnevk, imx8mpevk,  
-imx8mqevk, imx8qmmek, imx8qxpmek, imx8ulpevk, imx93evk, etc
+imx8mqevk, imx8qmmek, imx8qxpmek, imx8ulpevk, imx93evk, sp2imx8mp, etc
 
 - __Layerscape platform__:  
 ls1012ardb, ls1012afrwy, ls1021atwr, ls1028ardb, ls1043ardb, ls1046ardb, ls1046afrwy,  
@@ -89,6 +89,27 @@ Most used example with separate command:
  bld clean-bsp                   # clean obsolete bsp image
  bld clean-linux                 # clean obsolete linux image
  bld list                        # list enabled machines and supported various components
+```
+
+note : if there is random disconnect in network the build may fail.In that case re-run "bld -m sp2imx8mp".
+
+## Flashing Guide:
+------------------
+```
+$ cd build_lsdk2406/images/
+$ flex-installer -i pf -d /dev/sdx -p 3P=512M:4G:-1
+$ flex-installer -d /dev/sdx -m sp2imx8mp -f firmware_sp2imx8mp_sdboot_lpddr4.img -b boot_IMX_arm64_lts_6.6.23_<time>.tar.zst -r rootfs_lsdk2406_debian_desktop_arm64_<time>.tar.zst
+
+```
+
+Partitions Information:
+```
+BOOT Partition - 512MB
+DATA2 Partition - 4GB (Backup Partition)
+DATA3 Partition - Remaining Space(RFS)
+
+You may change them as required using the below format,
+flex-installer -i pf -p <partition_list> -d <device>
 ```
 
 ## More info

@@ -219,7 +219,7 @@ generate_distro_bootscr() {
 	    fi
 	fi
 	mkdir -p $FBOUTDIR/bsp/u-boot/$1
-	[ "$IMA_EVM" = "y" ] && echo $distroboot_ima >> $FBOUTDIR/${distro_bootscript}.tmp || echo $distroboot >> $FBOUTDIR/${distro_bootscript}.tmp
+	[ "$IMA_EVM" = "y" ] && echo $distroboot_ima >> $FBOUTDIR/${distro_bootscript}.tmp || echo "$distroboot" >> $FBOUTDIR/${distro_bootscript}.tmp
 	mkimage -A arm64 -O linux -T script -C none -a 0 -e 0  -n "boot.scr" -d $FBOUTDIR/${distro_bootscript}.tmp $FBOUTDIR/$distro_bootscript
 	rm -f $FBOUTDIR/${distro_bootscript}.tmp
 	fbprint_d $distro_bootscript

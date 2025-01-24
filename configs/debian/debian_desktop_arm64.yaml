@@ -93,6 +93,12 @@ mmdebstrap:
     - mesa-utils
     - alsa-utils
     - dmz-cursor-theme
+    - gpiod
+    - libgpiod2
+    - python3-msgpack
+    - python3-smbus2
+    - can-utils
+    - tpm2-tools
   setup-hooks:
       # Setup NXP board-specific configurations for various platforms
     - 'mkdir -p $1/usr/local/bin'
@@ -115,10 +121,17 @@ mmdebstrap:
     - 'cp src/misc/boot.mount $1/lib/systemd/system/'
     - 'cp tools/flex-installer $1/usr/bin/'
     - 'cp tools/resizerfs $1/usr/bin/'
+    - 'cp src/misc/debian/uart-mode.sh $1/usr/sbin/'
+    - 'cp src/misc/debian/bt-hciattach.sh $1/usr/sbin/'
+    - 'cp src/misc/debian/usb-mux.sh $1/usr/sbin/'
     - 'cp src/misc/udev/udev-rules-*/*.rules $1/etc/udev/rules.d/'
     - 'cp src/misc/debian/distroplatcfg $1/usr/bin/'
     - 'cp src/misc/debian/platcfg.service $1/lib/systemd/system/'
+    - 'cp src/misc/debian/bt-hciattach.service $1/lib/systemd/system/'
+    - 'cp src/misc/debian/usb-mux.service $1/lib/systemd/system/'
     - 'chroot "$1" ln -s /lib/systemd/system/platcfg.service /etc/systemd/system/multi-user.target.wants/platcfg.service'
+    - 'chroot "$1" ln -s /lib/systemd/system/bt-hciattach.service /etc/systemd/system/multi-user.target.wants/bt-hciattach.service'
+    - 'chroot "$1" ln -s /lib/systemd/system/usb-mux.service /etc/systemd/system/multi-user.target.wants/usb-mux.service'
     - 'chroot "$1" ln -s /lib/systemd/system/boot.mount /etc/systemd/system/local-fs.target.wants/boot.mount'
     - 'chroot "$1" ln -s /boot/tools/perf /usr/local/bin/perf'
     - 'chroot "$1" ln -s /sbin/init /init'
@@ -135,3 +148,5 @@ mmdebstrap:
     - 'printf " * Licensing: https://lsdk.github.io/eula\n" >> $1/etc/update-motd.d/20-help-text'
     - 'printf "NXP LSDK 2406 Debian Desktop (optimized with NXP-specific hardware acceleration)\n" >> $1/etc/issue'
     - 'printf "Build: `date --rfc-3339 seconds`\n" >> $1/etc/buildinfo'
+    - 'printf "options moal mod_para=nxp/wifi_mod_para.conf" >> $1/etc/modprobe.d/moal.conf'
+    - 'printf "moal\n" >> $1/etc/modules'

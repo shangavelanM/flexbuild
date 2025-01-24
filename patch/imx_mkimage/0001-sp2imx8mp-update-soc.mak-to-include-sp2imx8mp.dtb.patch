@@ -1,0 +1,25 @@
+From dcc31d36121921898589d6ddfca23ce0ddae83e1 Mon Sep 17 00:00:00 2001
+From: shangavelan <shangavelan.m@adlinktech.com>
+Date: Thu, 23 Jan 2025 20:35:19 +0530
+Subject: [PATCH] sp2imx8mp: update soc.mak to include sp2imx8mp.dtb
+
+
+diff --git a/iMX8M/soc.mak b/iMX8M/soc.mak
+index 085224d..357ce2a 100644
+--- a/iMX8M/soc.mak
++++ b/iMX8M/soc.mak
+@@ -151,9 +151,9 @@ u-boot-atf-tee.bin: u-boot.bin bl31.bin $(TEE)
+ clean:
+ 	@rm -f $(MKIMG) u-boot-atf.bin u-boot-atf-tee.bin u-boot-spl-ddr.bin u-boot.itb u-boot.its u-boot-ddr3l.itb u-boot-ddr3l.its u-boot-spl-ddr3l.bin u-boot-ddr4.itb u-boot-ddr4.its u-boot-spl-ddr4.bin u-boot-ddr4-evk.itb u-boot-ivt.itb u-boot-ddr4-evk.its $(OUTIMG)
+ 
+-dtb = evk.dtb
++dtb = sp2imx8mp.dtb
+ $(dtb):
+-	./$(DTB_PREPROC) $(PLAT)-evk.dtb $(dtb) $(dtbs)
++	./$(DTB_PREPROC) $(dtb) $(dtbs)
+ 
+ u-boot.itb: $(dtb) $(supp_dtbs)
+ 	./$(PAD_IMAGE) $(TEE)
+-- 
+2.39.5
+

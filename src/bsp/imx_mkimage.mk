@@ -48,8 +48,8 @@ define imx_mkimage_target
 	SOC=iMX8M; SOC_FAMILY=iMX8M; target=flash_ddr4_val; \
     elif echo $1 | grep -qE ^imx8mq_evk; then \
 	SOC=iMX8M; SOC_FAMILY=iMX8M; target=flash_evk; \
-    elif echo $1 | grep -qE ^sp2imx8mp; then \
-	SOC=iMX8M; SOC_FAMILY=iMX8M; target=flash_evk; \
+    elif echo $1 | grep -qE ^adlink; then \
+	SOC=iMX8MP; SOC_FAMILY=iMX8M; target=flash_evk; \
     elif echo $1 | grep -qE ^imx8qm; then \
 	SOC=iMX8QM; SOC_FAMILY=iMX8QM; target=flash_spl; \
 	cp -f $(BSPDIR)/imx-scfw/mx8qm-mek-scfw-tcm.bin $(BSPDIR)/imx_mkimage/iMX8QM/scfw_tcm.bin; \
@@ -73,6 +73,9 @@ define imx_mkimage_target
     cp -f $(BSPDIR)/firmware-imx/firmware/ddr/synopsys/*.bin $(BSPDIR)/imx_mkimage/$$SOC_FAMILY; \
     \
     cd $(BSPDIR)/imx_mkimage && \
+    if [ -d $(FBDIR)/patch/imx_mkimage ] && [ ! -f .patchdone ]; then \
+	git am $(FBDIR)/patch/imx_mkimage/*.patch && touch .patchdone; \
+    fi && \
     $(MAKE) clean && $(MAKE) bin && \
     $(MAKE) SOC=iMX8M mkimage_imx8 && \
     if [ $(MACHINE) = imx8qmevk ];  then \
@@ -89,6 +92,7 @@ define imx_mkimage_target
     fi && \
     [ $(MACHINE) = imx8ulpevk ] && plat=$${MACHINE:0:7} || plat=$${MACHINE:0:6} && \
     [ $(MACHINE) = imx93evk ] && plat=$${MACHINE:0:5} || true && \
+    [ $(MACHINE) = sp2imx8mp ] && plat=imx8mp || true && \
     cp -t $(BSPDIR)/imx_mkimage/$$SOC_FAMILY \
 	$(BSPDIR)/firmware-imx/firmware/hdmi/cadence/signed*_imx8m.bin \
 	$$opdir/spl/u-boot-spl.bin $$opdir/u-boot.bin \
@@ -104,6 +108,7 @@ define imx_mkimage_target
 	   $(MACHINE) = imx8mqevk ] && [ $$target = flash_ddr4_evk -o $$target = flash_ddr4_val ]; then \
 	cp $$SOC_FAMILY/flash.bin $(FBOUTDIR)/bsp/imx-mkimage/$$brd/flash-ddr4.bin; \
     elif [ $(MACHINE) = imx8mpevk -o $(MACHINE) = imx8mnevk -o $(MACHINE) = imx8mmevk -o \
+	   $(MACHINE) = sp2imx8mp -o $(MACHINE) = lecimx8mp -o \
 	   $(MACHINE) = imx8mqevk ] && [ $$target = flash_evk ]; then \
 	cp $$SOC_FAMILY/flash.bin $(FBOUTDIR)/bsp/imx-mkimage/$$brd/flash-lpddr4.bin; \
     elif [ $(MACHINE) = imx8ulpevk -a $$target = flash_singleboot ]; then \

@@ -30,7 +30,7 @@ generate_bootpartition_tarball() {
     [ -f $base_itb ] && cp -f $base_itb $bootpartdir
     kernelrelease=$(cat $KERNEL_OUTPUT_PATH/$curbrch/include/config/kernel.release)
     [ $DESTARCH = arm64 ] && kernelimg=Image* || kernelimg=zImage*
-    cp -f $FBOUTDIR/linux/kernel/$DESTARCH/$SOCFAMILY/{*.dtb,$kernelimg,config-$kernelrelease} $bootpartdir
+    cp -f $FBOUTDIR/linux/kernel/$DESTARCH/$SOCFAMILY/{*.dtb*,$kernelimg,config-$kernelrelease} $bootpartdir
     if [ $DESTARCH = arm64 ]; then
 	cp -f $FBOUTDIR/linux/kernel/$DESTARCH/$SOCFAMILY/vmlinuz-$kernelrelease $bootpartdir
     elif [ $DESTARCH = arm32 ]; then
@@ -70,7 +70,11 @@ generate_bootpartition_tarball() {
 
     bld distroscr -a $DESTARCH -p $SOCFAMILY -f $CFGLISTYML
 
-    ls $FBOUTDIR/bsp/u-boot/$socseries*/*boot.scr | grep -E $scrmask | xargs -I {} cp -v {} $bootpartdir
+    if [ "$MACHINE" = sp2imx8mp ]; then
+	ls $FBOUTDIR/bsp/u-boot/"$MACHINE"/*boot.scr | grep -E $scrmask | xargs -I {} cp -v {} $bootpartdir
+    else
+	ls $FBOUTDIR/bsp/u-boot/$socseries*/*boot.scr | grep -E $scrmask | xargs -I {} cp -v {} $bootpartdir
+    fi
 
     # check UEFI
     if [ "$CONFIG_UEFI_BIN" = y -a $SOCFAMILY = LS -a $DESTARCH = arm64 ]; then
