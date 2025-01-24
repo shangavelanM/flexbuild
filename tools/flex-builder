@@ -480,6 +480,13 @@ generate_distro_boot_script() {
     fi
 }
 
+alsa_asound_sp2_update() {
+    if [ "$MACHINE" = "sp2imx8mp" ]; then
+        sudo cp $FBDIR/src/misc/debian/asound.state $RFSDIR/var/lib/alsa/asound.state
+        fbprint_d "copied sound state!"
+    fi
+}
+
 
 build_rfs_and_apps() {
     if [ "$BUILD_DEBIAN_BASE" = y ]; then
@@ -501,6 +508,7 @@ build_rfs_and_apps() {
 	[ "$PKG_GROUPS_ML" = y -o "$GROUPS_ML" = y ] && \
 	bld ml -r debian:desktop -a $DESTARCH -p $SOCFAMILY -f $CFGLISTYML
 	bld merge-apps -r debian:desktop -a $DESTARCH -p $SOCFAMILY -f $CFGLISTYML
+	alsa_asound_sp2_update
 	bld packrfs -r debian:desktop -a $DESTARCH -p $SOCFAMILY -f $CFGLISTYML
     fi
 

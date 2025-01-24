@@ -47,6 +47,7 @@ ls1088ardb, ls2088ardb, ls2160ardb, lx2162aqds, etc
 ## FlexBuild Usage
 ------------------
 
+Build Instructions:
 ```
 $ cd flexbuild
 $ . setup.env
@@ -60,16 +61,28 @@ $ bld bsp -m sp2imx8mp # first build the bsp components separately to make sure 
 $ bld -m sp2imx8mp # Complete build
 ```
 
-Most used example with automated build:
+Flashing Guide:
 ```
- bld -m imx8mpevk                # automatically build BSP + kernel + NXP-specific apps + Debian RootFS for imx8mpevk platform
- bld -m lx2160ardb               # same as above, for lx2160ardb platform
- bld auto -p IMX (or -p LS)      # same as above, for all arm64 iMX (or Layerscape) platforms
+$ cd build_lsdk2406/images/
+$ flex-installer -i pf -d /dev/sdx -p 3P=512M:4G:-1
+$ flex-installer -d /dev/sdx -m sp2imx8mp -f firmware_sp2imx8mp_sdboot_lpddr4.img -b boot_IMX_arm64_lts_6.6.23_<time>.tar.zst -r rootfs_lsdk2406_debian_desktop_arm64_<time>.tar.zst
+
 ```
 
-Most used example with separate command:
+Partitions Information:
 ```
- bld bsp -m imx8mpevk            # generate BSP composite firmware (including atf, u-boot, optee_os, kernel, dtb, peripheral firmware, tiny rootfs)
+BOOT Partition - 512MB
+DATA2 Partition - 4GB (Backup Partition)
+DATA3 Partition - Remaining Space(RFS)
+
+You may change them as required using the below format,
+flex-installer -i pf -p <partition_list> -d <device>
+```
+
+
+Most used examples:
+```
+ bld bsp -m sp2imx8mp            # generate BSP composite firmware (including atf, u-boot, optee_os, kernel, dtb, peripheral firmware, tiny rootfs)
  bld rfs -r debian:desktop       # generate Debian-based desktop rootfs  (with more graphics/multimedia packages for Desktop)
  bld rfs -r debian:server        # generate Debian-based server rootfs   (with more server related packages, no GUI Desktop)
  bld rfs -r debian:base          # generate Debian-based base rootfs     (small footprint with base packages)

@@ -79,6 +79,9 @@ define imx_mkimage_target
     cp -f $(BSPDIR)/firmware-imx/firmware/ddr/synopsys/*.bin $(BSPDIR)/imx_mkimage/$$SOC_FAMILY; \
     \
     cd $(BSPDIR)/imx_mkimage && \
+    if [ -d $(FBDIR)/patch/imx_mkimage ] && [ ! -f .patchdone ]; then \
+	git am $(FBDIR)/patch/imx_mkimage/*.patch && touch .patchdone; \
+    fi && \
     $(MAKE) clean && $(MAKE) bin && \
     $(MAKE) SOC=iMX8M mkimage_imx8 && \
     if [ $(MACHINE) = imx8qmevk ];  then \
