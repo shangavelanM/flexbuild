@@ -6,8 +6,6 @@
 define imx_mkimage_target
     if [ ! -d $(BSPDIR)/imx_mkimage ]; then \
 	$(call repo-mngr,fetch,imx_mkimage,bsp); \
-	cd $(BSPDIR)/imx_mkimage && \
-	git apply $(FBDIR)/patch/imx_mkimage/sp2imx8mp_mkimage.patch; \
     fi && \
     \
     if [ ! -d $(BSPDIR)/firmware-imx ]; then \
