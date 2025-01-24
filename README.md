@@ -37,7 +37,7 @@ device (SD/eMMC card or USB/SATA disk) on target board or on host machine.
 ----------------------
 - __iMX platform__:  
 imx6qpsabresd, imx6qsabresd, imx6sllevk, imx7ulpevk, imx8mmevk, imx8mnevk, imx8mpevk,  
-imx8mqevk, imx8qmmek, imx8qxpmek, imx8ulpevk, imx93evk,sp2imx8mp etc
+imx8mqevk, imx8qmmek, imx8qxpmek, imx8ulpevk, imx93evk, sp2imx8mp etc
 
 - __Layerscape platform__:  
 ls1012ardb, ls1012afrwy, ls1021atwr, ls1028ardb, ls1043ardb, ls1046ardb, ls1046afrwy,  
