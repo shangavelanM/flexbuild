@@ -221,7 +221,10 @@ generate_distro_bootscr() {
 	mkdir -p $FBOUTDIR/bsp/u-boot/$1
 	[ "$IMA_EVM" = "y" ] && echo $distroboot_ima >> $FBOUTDIR/${distro_bootscript}.tmp || echo $distroboot >> $FBOUTDIR/${distro_bootscript}.tmp
 	mkimage -A arm64 -O linux -T script -C none -a 0 -e 0  -n "boot.scr" -d $FBOUTDIR/${distro_bootscript}.tmp $FBOUTDIR/$distro_bootscript	
-	mkimage -A arm64 -O linux -T script -C none -a 0 -e 0  -n "boot.scr" -d $distro_bootpath $FBOUTDIR/$distro_bootscript
+	if [ "$MACHINE" = "sp2imx8mp" ]; then
+	    fbprint_d "created sp2 boot script!"
+            mkimage -A arm64 -O linux -T script -C none -a 0 -e 0  -n "boot.scr" -d $distro_bootpath $FBOUTDIR/$distro_bootscript
+        fi
 	rm -f $FBOUTDIR/${distro_bootscript}.tmp
 	fbprint_d $distro_bootscript
     fi
@@ -480,12 +483,7 @@ generate_distro_boot_script() {
     fi
 }
 
-alsa_asound_sp2_update() {
-    if [ "$MACHINE" = "sp2imx8mp" ]; then
-        sudo cp $FBDIR/src/misc/debian/asound.state $RFSDIR/var/lib/alsa/asound.state
-        fbprint_d "copied sound state!"
-    fi
-}
+
 
 
 build_rfs_and_apps() {
@@ -508,7 +506,6 @@ build_rfs_and_apps() {
 	[ "$PKG_GROUPS_ML" = y -o "$GROUPS_ML" = y ] && \
 	bld ml -r debian:desktop -a $DESTARCH -p $SOCFAMILY -f $CFGLISTYML
 	bld merge-apps -r debian:desktop -a $DESTARCH -p $SOCFAMILY -f $CFGLISTYML
-	alsa_asound_sp2_update
 	bld packrfs -r debian:desktop -a $DESTARCH -p $SOCFAMILY -f $CFGLISTYML
     fi
 
