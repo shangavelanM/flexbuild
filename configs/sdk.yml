@@ -78,7 +78,7 @@ repo:
 
   uboot:
     url:  https://github.com/ADLINK/u-boot.git
-    tag:  lf-6.6.23-2.0.0-sp2-r0002
+    tag:  lf-6.6.23-2.0.0-sp2-r0003
 
   rcw:
     url:  https://github.com/nxp-qoriq/rcw.git
@@ -140,7 +140,7 @@ repo:
 # kernel and modules git repositories
   linux:
     url:  https://github.com/ADLINK/linux.git
-    tag:  lf-6.6.23-2.0.0-sp2-r0003
+    tag:  lf-6.6.23-2.0.0-sp2-r0004
 
   cryptodev_linux:
     url:  https://github.com/cryptodev-linux/cryptodev-linux.git
