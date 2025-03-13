@@ -59,7 +59,7 @@ BUILD:
 # default kernel config list
 KERNEL_CONFIG:
   ARM64_LS:  "defconfig lsdk.config"
-  ARM64_IMX: "defconfig adlink-sp2.config imx_v8_defconfig"
+  ARM64_IMX: "defconfig imx_v8_defconfig adlink-sp2.config"
   ARM32_LS:  "multi_v7_defconfig multi_v7_lpae.config lsdk.config"
   ARM32_IMX: "imx_v7_defconfig"
 
